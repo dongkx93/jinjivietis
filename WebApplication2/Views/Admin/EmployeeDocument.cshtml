@@ -1,0 +1,38 @@
+﻿@{ 
+    ViewBag.Title = "Document";
+    string employeeName = ViewBag.Name;
+    string employeeId = ViewBag.Id;
+    Dictionary<string , string> documents = (Dictionary<string , string>)ViewData["documents"];
+}
+
+<div class="row employee-document">
+
+    <h1>@Html.ActionLink(employeeName, "EmployeeDetail", "Employee",new { id = employeeId} , null) 書類一覧</h1>
+    <table class="table table-hover">
+       <tbody>
+           @foreach (var document in documents)
+           {
+            <tr>
+                <td><a href="@document.Value">@document.Key</a></td>
+                <td><a href="@Url.Action("DeleteEmployeeDocument", "Employee" , new { id = employeeId , filename= document.Key })"><span class="glyphicon glyphicon-remove"></span></a></td>
+            </tr>
+           }
+       </tbody>     
+    </table>
+        @Html.ValidationSummary(false, "", new { @class = "text-danger list-unstyled text-center", @id = "validate-form" })
+    @using (Html.BeginForm("AddEmployeeDocument", "Employee", FormMethod.Post, new { encType = "multipart/form-data", @class = "from-horizontal" }))
+    { 
+        <div class="form-group">
+            <label>ファイル</label>
+            @Html.TextBox("documentFile", null, new { type = "file", @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.TextBox("id", employeeId, new { @type = "hidden"})
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-success" value="アップロード" />
+            @Html.ActionLink("取り消し", "Index", "Employee", new { @class = "btn btn-default" })
+        </div>
+        
+     }
+</div>

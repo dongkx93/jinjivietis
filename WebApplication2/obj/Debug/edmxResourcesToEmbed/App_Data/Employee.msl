@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="sys_employeeModelStoreContainer" CdmEntityContainer="sys_employeeEntities">
+    <EntitySetMapping Name="authority">
+      <EntityTypeMapping TypeName="sys_employeeModel.authority">
+        <MappingFragment StoreEntitySet="authority">
+          <ScalarProperty Name="authorityId" ColumnName="authorityId" />
+          <ScalarProperty Name="authorityName" ColumnName="authorityName" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="customer">
+      <EntityTypeMapping TypeName="sys_employeeModel.customer">
+        <MappingFragment StoreEntitySet="customer">
+          <ScalarProperty Name="customerId" ColumnName="customerId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="employee">
+      <EntityTypeMapping TypeName="sys_employeeModel.employee">
+        <MappingFragment StoreEntitySet="employee">
+          <ScalarProperty Name="employeeId" ColumnName="employeeId" />
+          <ScalarProperty Name="managerId" ColumnName="managerId" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="passWord" ColumnName="passWord" />
+          <ScalarProperty Name="authorityId" ColumnName="authorityId" />
+          <ScalarProperty Name="dateOfBirth" ColumnName="dateOfBirth" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="personalNumber" ColumnName="personalNumber" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="kataName" ColumnName="kataName" />
+          <ScalarProperty Name="telephoneNumber" ColumnName="telephoneNumber" />
+          <ScalarProperty Name="personalDocumentPath" ColumnName="personalDocumentPath" />
+          <ScalarProperty Name="mailAddress" ColumnName="mailAddress" />
+          <ScalarProperty Name="customerId" ColumnName="customerId" />
+          <ScalarProperty Name="accountBankInfo" ColumnName="accountBankInfo" />
+          <ScalarProperty Name="depentdentFamily" ColumnName="depentdentFamily" />
+          <ScalarProperty Name="entryDate" ColumnName="entryDate" />
+          <ScalarProperty Name="leavingDate" ColumnName="leavingDate" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="paidholiday">
+      <EntityTypeMapping TypeName="sys_employeeModel.paidholiday">
+        <MappingFragment StoreEntitySet="paidholiday">
+          <ScalarProperty Name="paidHolidayId" ColumnName="paidHolidayId" />
+          <ScalarProperty Name="emplyeeId" ColumnName="emplyeeId" />
+          <ScalarProperty Name="startDate" ColumnName="startDate" />
+          <ScalarProperty Name="endDate" ColumnName="endDate" />
+          <ScalarProperty Name="reason" ColumnName="reason" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="salary">
+      <EntityTypeMapping TypeName="sys_employeeModel.salary">
+        <MappingFragment StoreEntitySet="salary">
+          <ScalarProperty Name="salaryId" ColumnName="salaryId" />
+          <ScalarProperty Name="employeeId" ColumnName="employeeId" />
+          <ScalarProperty Name="paymentDate" ColumnName="paymentDate" />
+          <ScalarProperty Name="salaryDetailFilePath" ColumnName="salaryDetailFilePath" />
+          <ScalarProperty Name="totalPaidAmount" ColumnName="totalPaidAmount" />
+          <ScalarProperty Name="deductionAmount" ColumnName="deductionAmount" />
+          <ScalarProperty Name="paidAmount" ColumnName="paidAmount" />
+          <ScalarProperty Name="transportationExpenses" ColumnName="transportationExpenses" />
+          <ScalarProperty Name="housingRental" ColumnName="housingRental" />
+          <ScalarProperty Name="overTimePayment" ColumnName="overTimePayment" />
+          <ScalarProperty Name="lateNightOverTimePayment" ColumnName="lateNightOverTimePayment" />
+          <ScalarProperty Name="lateWorkDeduction" ColumnName="lateWorkDeduction" />
+          <ScalarProperty Name="absentDeduction" ColumnName="absentDeduction" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

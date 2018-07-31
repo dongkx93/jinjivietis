@@ -1,0 +1,33 @@
+﻿@using WebApplication2.Models.Login
+@{
+    Layout = "~/Views/Shared/_EmployeeLayoutPage.cshtml";
+    EmployeeLoginOutput employee = (EmployeeLoginOutput)Session["employee"];
+    string salaryMonth = (string)TempData["SalaryMonth"];
+}
+<div class="col-sm-9 employee-salary">
+    <h2 class="text-primary">年月で給料明細を検索</h2>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @using (Html.BeginForm("GetEmployeeSalaryMonth", "Info", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            <div class="form-group">
+                <label class="text-right col-md-3">年月</label>
+                <div class="col-md-6">
+                    @Html.TextBox("SalaryMonth", salaryMonth , new { @class= "salary-month form-control" , @readonly="readonly" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4 col-md-offset-3 text-center">
+                    <input type="submit" value="送信" class="btn btn-success" />
+                </div>
+            </div>
+        }      
+    <div class="tab-content">
+        <div class="tab-pane active" id="home">
+            <object data="@TempData["SalaryDetailFilePath"]" type="application/pdf" width="100%" height="650px">
+                <p><a href="@TempData["SalaryDetailFilePath"]"></a></p>
+            </object>
+            </div>
+    </div>
+</div>
+

@@ -1,0 +1,144 @@
+﻿@{
+    ViewBag.Title = "About";
+    List<SelectListItem> authorities = (List<SelectListItem>)TempData["authorities"];
+    List<SelectListItem> managers = (List<SelectListItem>)TempData["managers"];
+    List<SelectListItem> customers = (List<SelectListItem>)TempData["customers"];
+}
+@model WebApplication2.Models.Employee.EmployeeAddInput
+
+<div class="container employee-detail">
+    <h2>ユーザ情報追加</h2>
+    @Html.ValidationSummary(false, "", new { @class = "text-danger list-unstyled text-center" , @id="validate-form"})
+    <div class="row">
+        @using (Html.BeginForm("AddEmployee", "Employee", FormMethod.Post, new { encType = "multipart/form-data", @class = "form-horizontal" }))
+        {
+            <div class="col-md-3">
+                <div class="text-center">
+                    <img src="~/Content/EmployeeInformation/10.png" class="avatar img-circle" alt="avatar" width="100" height="100">
+                    <h6>Upload a different photo...</h6>
+
+                    @Html.TextBoxFor(model => model.AvatarFile, new { type = "file" })
+                </div>
+            </div>
+            if (ViewData["SuccessMessage"] != null)
+            {
+                <div class="text-primary">@ViewData["SuccessMessage"]</div>
+            }
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Id(vis...) :</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.Id , new { maxlength = 6 , @class = "form-control" , @placehoder="vis..." })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">名前(必要):</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.Name, new { @class="form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">カタ名:</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.KataName, new {maxlength=6, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">職権:</label>
+                        <div class="col-lg-8">
+                            @Html.DropDownList("AuthorityId", authorities, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">電話番号:</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.TelephoneNumber, new { maxlength = 15, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">生年月日(必要):</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.DateOfBirth, new { maxlength = 10, @class = "form-control birthday" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">現住所:</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.Address, new { maxlength = 20, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">メールアドレス:</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.MailAddress, new { maxlength = 20, @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">客先:</label>
+                        @Html.DropDownList("CustomerId", customers, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">属人(管理者):</label>
+                        <div class="col-lg-8">
+                            @Html.DropDownList("ManagerId", managers, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">個人番号:</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.PersonalNumber, new { maxlength = 20, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">銀行情報:</label>
+                        <div class="col-lg-8">
+                            @Html.TextAreaFor(model => model.AccountBankInfo, new { maxlength = 150, @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">入社日:</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.EntryDate, new { maxlength = 10, @class = "form-control entry-date" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">扶養人数:</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.DepentdentFamily, new { maxlength = 2, @class = "form-control",value=0 , type="number" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Username:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.UserName, new { maxlength = 20, @class = "form-control"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Password:</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.PassWord, new { maxlength = 20, @class = "form-control",type="password" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">参考:</label>
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(model => model.Description , new { maxlength = 150, @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-8">
+                        <input type="submit" class="btn btn-primary" value="追加">
+                        <span></span>
+                        <a href="@Url.Action("Index", "Employee")" class="btn btn-default">取り消し</a>
+                    </div>
+                </div>
+        }   
+    </div>
+</div>

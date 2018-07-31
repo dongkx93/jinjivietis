@@ -1,0 +1,83 @@
+﻿@using WebApplication2.Models.Login
+@using WebApplication2.Common
+@{ 
+    EmployeeLoginOutput employee = (EmployeeLoginOutput)Session["employee"];
+    string avatarFilePath;
+    if(@employee.AvatarFilePath != null)
+    {
+        avatarFilePath = (string)@employee.AvatarFilePath;
+    } else
+    {
+        avatarFilePath = ConstantCommon.AVATARPATH;
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - マイ ASP.NET アプリケーション</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("給料明細", "Index", "Info")</li>
+                    <li>@Html.ActionLink("パスワード変更", "PasswordChange", "Info")</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li><a href="#"><img title="profile image" width="20" height="20" src="@avatarFilePath"></a></li>
+                    <li><a href="@Url.Action("Index","Info")"><span class="glyphicon glyphicon-user"></span>@employee.Name</a></li>
+                    <li><a href="@Url.Action("","Logout")"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container bootstrap snippet">
+        <div class="row">
+            <div class="col-md-9"><h2>@employee.Id</h2></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <!--left col-->
+                <ul class="list-group">
+                    <li class="list-group-item text-muted">個人情報</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>名前</strong></span> @employee.Name</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>カタ名</strong></span> @employee.KataName</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>メール</strong></span> @employee.Email</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>電話番号</strong></span> @employee.TelephoneNumber</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>入社日</strong></span> @employee.EntryDate</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>客先</strong></span> @employee.CustomerName</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>住所</strong></span> @employee.Address</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>銀行口座情報</strong></span> @employee.AccountBankInfo</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>個人番号</strong></span> @employee.PersonalNunber</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>生年月日</strong></span> @employee.DateOfBirth</li>
+                </ul>
+            </div>
+            @RenderBody()
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jsdatepicker")
+    <script>
+        if ($('.employee-salary')) {
+            $('.employee-salary .salary-month').datepicker({
+                minViewMode: 1,
+                maxViewMode: 2,
+                todayBtn: "linked",
+                language: "ja",
+                format: "yyyy/mm/dd",
+                orientation: "auto",
+                todayHighlight: true
+            });
+        }
+    </script>
+</body>
+
+</html>

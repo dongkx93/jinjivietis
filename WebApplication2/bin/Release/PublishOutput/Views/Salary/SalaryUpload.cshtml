@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "SalalyDetailUpload";
+    string salaryMonth = (string)Session["SalaryMonth"];
+    List<string> salaryFileNames = (List<string>)Session["SalaryFileNames"];
+    string messageError = (string)TempData["messageError"];
+}
+<script>
+    var messageError = @messageError;
+    if (messageError) {
+        alert(messageError);
+    }
+</script>
+
+<h2>給料明細アップロード</h2>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+ @if (ViewData["SuccessMessage"] != null)
+    {
+        <div class="text-primary">@ViewData["SuccessMessage"].ToString()</div>
+    }
+<div class="row salary">
+        @using (Html.BeginForm("UploadSalaryDetailFile", "Salary", FormMethod.Post,new { @class = "form-horizontal" , enctype="multipart/form-data" }))
+        {
+            <div class="col-md-6 col-md-offset-3">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label class="control-label" for="salary-monhth">年月</label>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.TextBox("SalaryMonth", salaryMonth, new { @class = "form-control salary-month", autocomplete = "off", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label for="salaryFolder">PDFファイル</label>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.TextBox("SalaryDetailFile" , "" , new { @class = "form-control", @type= "file" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-8 col-md-offset-2">
+                        <input href="#" type="submit" class="btn btn-success" value="送信" />
+                        @Html.ActionLink("取り消し", "Index", "Salary", new { @class = "btn btn-default" })
+                    </div>
+                </div>
+            </div>
+        }
+    <table class="table table-striped">
+        <tbody>
+            @if(salaryFileNames != null) { 
+                foreach (string salaryFileName in salaryFileNames)
+                {
+                    <tr>
+                        <td><a href="#" class="glyphicon-link">@salaryFileName</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

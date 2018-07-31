@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="sys_employeeModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="authority">
+    <Key>
+      <PropertyRef Name="authorityId" />
+    </Key>
+    <Property Name="authorityId" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="authorityName" Type="varchar" MaxLength="45" />
+    <Property Name="description" Type="varchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="customer">
+    <Key>
+      <PropertyRef Name="customerId" />
+    </Key>
+    <Property Name="customerId" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="45" />
+    <Property Name="address" Type="varchar" MaxLength="45" />
+    <Property Name="description" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="employeeId" />
+    </Key>
+    <Property Name="employeeId" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="managerId" Type="varchar" MaxLength="45" />
+    <Property Name="userName" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="passWord" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="authorityId" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="dateOfBirth" Type="datetime" Precision="0" />
+    <Property Name="address" Type="varchar" MaxLength="45" />
+    <Property Name="personalNumber" Type="varchar" MaxLength="45" />
+    <Property Name="name" Type="varchar" MaxLength="45" />
+    <Property Name="kataName" Type="varchar" MaxLength="100" />
+    <Property Name="telephoneNumber" Type="varchar" MaxLength="45" />
+    <Property Name="personalDocumentPath" Type="varchar" MaxLength="45" />
+    <Property Name="mailAddress" Type="varchar" MaxLength="45" />
+    <Property Name="customerId" Type="varchar" MaxLength="45" />
+    <Property Name="accountBankInfo" Type="varchar" MaxLength="255" />
+    <Property Name="avatarFilePath" Type="varchar" MaxLength="255" />
+    <Property Name="depentdentFamily" Type="int" />
+    <Property Name="entryDate" Type="varchar" MaxLength="15" />
+    <Property Name="leavingDate" Type="varchar" MaxLength="15" />
+    <Property Name="description" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="paidholiday">
+    <Key>
+      <PropertyRef Name="paidHolidayId" />
+    </Key>
+    <Property Name="paidHolidayId" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="emplyeeId" Type="varchar" MaxLength="45" />
+    <Property Name="startDate" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="endDate" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="reason" Type="varchar" MaxLength="150" />
+    <Property Name="description" Type="varchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="salary">
+    <Key>
+      <PropertyRef Name="salaryId" />
+    </Key>
+    <Property Name="salaryId" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="employeeId" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="paymentDate" Type="varchar" MaxLength="30" />
+    <Property Name="salaryDetailFilePath" Type="varchar" MaxLength="100" />
+    <Property Name="totalPaidAmount" Type="double" />
+    <Property Name="deductionAmount" Type="double" />
+    <Property Name="paidAmount" Type="double" />
+    <Property Name="transportationExpenses" Type="double" />
+    <Property Name="housingRental" Type="double" />
+    <Property Name="overTimePayment" Type="double" />
+    <Property Name="lateNightOverTimePayment" Type="double" />
+    <Property Name="lateWorkDeduction" Type="double" />
+    <Property Name="absentDeduction" Type="double" />
+    <Property Name="description" Type="varchar" MaxLength="150" />
+  </EntityType>
+  <EntityContainer Name="sys_employeeModelStoreContainer">
+    <EntitySet Name="authority" EntityType="Self.authority" Schema="sys_employee" store:Type="Tables" />
+    <EntitySet Name="customer" EntityType="Self.customer" Schema="sys_employee" store:Type="Tables" />
+    <EntitySet Name="employee" EntityType="Self.employee" Schema="sys_employee" store:Type="Tables" />
+    <EntitySet Name="paidholiday" EntityType="Self.paidholiday" Schema="sys_employee" store:Type="Tables" />
+    <EntitySet Name="salary" EntityType="Self.salary" Schema="sys_employee" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

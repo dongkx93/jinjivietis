@@ -1,0 +1,94 @@
+﻿@using WebApplication2.Models.Salary
+
+@{
+    ViewBag.Title = "Index";
+    List<SalaryView> salarys = (List<SalaryView>)ViewData["salarys"];
+    var searchMonth = ViewData["SearchMonth"];
+    var paymentMonth = Session["SalaryMonth"];
+
+}
+<div class="container salary">
+    <h2>給料</h2>
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    @if (ViewData["SuccessMessage"] != null)
+    {
+        <div class="text-primary">@ViewData["SuccessMessage"]</div>
+    }
+    <div class="row">
+        @using (Html.BeginForm("Action", "Salary", FormMethod.Post, new { @class = "form-horizontal" ,id="salaryForm" ,enctype="multipart/form-data" }))
+        {
+            <div class="col-md-6 col-md-offset-3">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label class="control-label" for="salary-monhth">年月</label>
+                    </div>
+                    <div class="col-md-6">
+                        @Html.TextBox("SalaryMonth", paymentMonth, new {@class = "form-control salary-month" , autocomplete="off", @readonly = "readonly" })
+                    </div>
+                    <div class="col-md-3">
+
+                        <a id="addSalaryDetailFilebtn" class="btn btn-primary" href="#"><span class="text-right">当月に追加</span><span class="glyphicon glyphicon-chevron-right"></span></a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label for="salaryFolder">フォルダZipFile</label>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.TextBox("SalaryDetailZipFile", "", new { @class = "form-control" , @type ="file"})
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-8 col-lg-offset-3">
+                        <input type="submit" name="SearchSalary" class="btn btn-success" value="給料検索" />
+                        <input type="submit" name="UploadSalary" class="btn btn-danger" value="給料明細送信" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row">
+        <h3>給料明細リスト:@if (paymentMonth != null)
+        {  @paymentMonth }</h3>
+    </div>
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>名前</td>
+                    <td>総合支払い金額</td>
+                    <td>総合控除金額</td>
+                    <td>振込金額</td>
+                    <td>給料明細</td>
+                    <td>参考</td>
+                    <td></td>
+                </tr>
+            </thead>
+
+            @if (salarys != null)
+            {
+                <tbody>
+
+                    @foreach (SalaryView salary in salarys)
+                {
+                        <tr>
+                            <td>@salary.EmployeeId</td>
+                            <td>@salary.Name</td>
+                            <td>@salary.TotalPaidAmount 円</td>
+                            <td>@salary.DeductionAmount 円</td>
+                            <td>@salary.PaidAmount 円</td>
+                            <td><a href="@salary.SalaryDetailFilePath">@salary.FileName</a></td>
+                            <td>@salary.Description</td>
+                        </tr>
+                    }
+                </tbody>
+            }
+        </table>
+    </div>
+   @using (Html.BeginForm("SalaryUploadView", "Salary" ,FormMethod.Post ,new { id = "salaryUploadViewForm" }))
+   {
+       @Html.Hidden("SalaryMonth" , "" , new { id= "moveUploadViewSalaryMonth" })
+       <input type="submit" id="moveUploadViewSubmitbtn" style="display:none"/>
+   }
+</div>

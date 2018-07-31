@@ -1,0 +1,75 @@
+﻿@using WebApplication2.Models.Login
+@{
+    EmployeeLoginOutput employee = (EmployeeLoginOutput)Session["employee"];
+}
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - マイ ASP.NET アプリケーション</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("ユーザ管理", "Index", "Employee")</li>
+                    <li>@Html.ActionLink("給料", "Index", "Salary")</li>
+                    <li>@Html.ActionLink("タイムシート", "Contact", "Home")</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span>@employee.Name</a></li>
+                    <li><a href="@Url.Action("","Logout")"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - VietIS Solution</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jsdatepicker")
+    @Scripts.Render("~/bundles/form")
+    @RenderSection("scripts", required: false)
+    <script>
+        if ($('.employee-detail')) {
+            $('.employee-detail .birthday').datepicker({
+                format: "yyyy/mm/dd",
+                language: "ja"
+            });
+
+            $('.employee-detail .entry-date').datepicker({
+                format: "yyyy/mm/dd",
+                language: "ja"
+            });
+
+            $('.employee-detail .leaving-date').datepicker({
+                format: "yyyy/mm/dd",
+                language: "ja"
+            });
+        }
+
+        if ($('.salary')) {
+            $('.salary .salary-month').datepicker({
+                minViewMode: 1,
+                maxViewMode: 2,
+                todayBtn: "linked",
+                language: "ja",
+                format: "yyyy/mm/dd",
+                orientation: "auto",
+                todayHighlight: true
+            });
+        }
+    </script>
+</body>
+</html>

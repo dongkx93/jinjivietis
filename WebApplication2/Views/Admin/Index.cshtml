@@ -1,0 +1,86 @@
+﻿@using WebApplication2.Models.Employee; 
+@{
+    ViewBag.Title = "ユーザ管理";
+    var employees = ViewData["employees"];
+    var authorites = (List<SelectListItem>)ViewBag.authorities;
+    var customers = (List<SelectListItem>)ViewBag.customers;
+}
+@model WebApplication2.Models.Employee.EmployeeSearchInput
+    <div class="row employee-container">
+        <h1>ユーザ管理</h1>
+        <div class="row">
+            @Html.ValidationSummary(false ,"" , new {@class="text-danger" })
+        @using (Html.BeginForm("EmployeeSearch", "Employee", FormMethod.Post, new { @class = "form-inline form-employee" }))
+        {
+            <div class="form-group">
+                @Html.TextBoxFor(model => model.Id, new { @placeholder = "Id...", @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(model => model.Name , new { @placeholder = "名前...", @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <div class="radio">
+                    <label>@Html.RadioButtonFor(model => model.WorkSituation, "1" ,new { @checked="checked"}) 在社</label>
+                </div>
+                <div class="radio">
+                    <label>@Html.RadioButtonFor(model => model.WorkSituation, "2")退社</label>
+                </div>
+                <div class="radio">
+                    <label>@Html.RadioButtonFor(model => model.WorkSituation, "3")両方</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Customer">客名</label>
+                @Html.DropDownList("CustomerId", customers,new { @class="form-control"})
+            </div>
+            <div class="form-group">
+                <label for="Customer">役割</label>
+                @Html.DropDownList("AuthorityId" , authorites , new { @class="form-control"})
+            </div>
+            <div class="form-group">
+                <input type="submit" value="検索" class="btn btn-success"/>
+            </div>
+        }
+            </div>
+
+        <table class="table table-hover">
+            
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>名前</th>
+                    <th>カタ名</th>
+                    <th>電話番号</th>
+                    <th>メールアドレス</th>
+                    <th>客先</th>
+                    <th>入社日</th>
+                    <th>役割</th>
+                    <th>参考</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in (List<EmployeeSearchOutput>)employees)
+                {
+                    <tr>
+                        <td>@employee.Id</td>
+                        <td>@employee.Name</td>
+                        <td>@employee.KataName</td>
+                        <td>@employee.TelephoneNumber</td>
+                        <td>@employee.MailAddress</td>
+                        <td>@employee.CustomerName</td>
+                        <td>@employee.EntryDate</td>
+                        <td>@employee.Authority</td>
+                        <td>@employee.Description</td>
+                        <td><a href="@Url.Action("EmployeeDetail", "Employee" , new { id=employee.Id})"><span class="glyphicon glyphicon-edit"></span></a></td>
+                        <td><a href="@Url.Action("EmployeeDocument", "Employee" , new { id=employee.Id})"><span class="glyphicon glyphicon-search"></span></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-5">
+            @Html.ActionLink("社員追加", "EmployeeAdd", "Employee", new object { }, new { @class = "btn btn-success" })
+        </div>
+    </div>
+

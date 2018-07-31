@@ -1,0 +1,161 @@
+﻿@{
+    ViewBag.Title = "About";
+    List<SelectListItem> authorities = (List<SelectListItem>)TempData["authorities"];
+    List<SelectListItem> managers = (List<SelectListItem>)TempData["managers"];
+    List<SelectListItem> customers = (List<SelectListItem>)TempData["customers"];
+}
+@model WebApplication2.Models.Employee.EmployeeUpdateInput
+
+<div class="container employee-detail">
+    <h1>ユーザ情報編集</h1>
+    @Html.ValidationSummary(false, "", new { @class = "text-danger list-unstyled text-center", @id = "validate-form" })
+    <div class="row">
+        @using (Html.BeginForm("UpdateEmployee", "Employee", FormMethod.Post, new { encType = "multipart/form-data", @class = "form-horizontal" }))
+        {
+            <!-- left column -->
+            <div class="col-md-3">
+                <div class="text-center">
+                    @if (!string.IsNullOrWhiteSpace(Model.AvatarFilePath))
+                    {
+                        <img src="@Model.AvatarFilePath" class="avatar img-circle" width="100" height="100" alt="avatar">
+                    }
+                    else
+                    {
+                        <img src="~/Content/EmployeeInformation/10.png" class="avatar img-circle" alt="avatar" width="100" height="100">
+                    }
+
+                    <h6>Upload a different photo...</h6>
+                    @Html.TextBoxFor(model => model.AvatarFile, new { type ="file",name ="AvatarFile"})
+                </div>
+            </div>
+            if(@ViewData["SuccesMessage"] != null)
+            {
+                <div class="text-primary">@ViewData["SuccesMessage"]</div>
+            }
+        <!-- edit form column -->
+            <div class="col-md-9 personal-info">
+                <h3>@Model.Name</h3>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Id(必要):</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.Id , new { @readonly="readonly", @class="form-control", name="Id"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">名前(必要):</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.Name, new { @class="form-control", name = "Name" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">カタ名:</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.KataName, new {@class="form-control", name = "KataName" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">職権:</label>
+                        <div class="col-lg-8">
+                            @Html.DropDownList("AuthorityId" , authorities , new { @class ="form-control" , name="AuthorityId"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">電話番号:</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.TelephoneNumber , new {@class = "form-control" , name= "TelephoneNumber" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">生年月日(必要):</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.DateOfBirth , new {@class ="form-control birthday" , name= "DateOfBirth" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">現住所:</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.Address , new {@class = "form-control" , name= "Address" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">メールアドレス:</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.MailAddress , new {@class ="form-control" , name = "MailAddress" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">客先:</label>
+                        @Html.DropDownList("CustomerId" , customers,new { @class = "form-control",name= "CustomerId" })
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">属人(管理者):</label>
+                        <div class="col-lg-8">
+                            @Html.DropDownList("ManagerId" , managers,new { @class="form-control" , name= "ManagerId" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">個人番号:</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.PersonalNumber , new {@class="form-control", name= "PersonalNumber" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">銀行情報:</label>
+                        <div class="col-lg-8">
+                            @Html.TextAreaFor(model => model.AccountBankInfo , new { @class ="form-control", name= "AccountBankInfo" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">入社日(必要):</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.EntryDate , new {@class = "form-control entry-date" , name= "EntryDate"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">退社日:</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.LeavingDate , new { @class="form-control leaving-date" ,name= "LeavingDate" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">扶養人数:</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => model.DepentdentFamily , new { @class="form-control",name= "DepentdentFamily" , type="number" ,value=0, maxlength=2})
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Username(必要):</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.UserName , new { @class="form-control",name="UserName"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Password(必要):</label>
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.PassWord , new { @class="form-control", type="password",name="PassWord", @onClick = "this.select();" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">参考:</label>
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(model => model.Description , new { @class="form-control" , name= "Description" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-8">
+                        <input type="submit" class="btn btn-primary" value="編集">
+                        <span></span>
+                        <a href="@Url.Action("Index", "Employee")" class="btn btn-default">取り消し</a>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+    </div>
